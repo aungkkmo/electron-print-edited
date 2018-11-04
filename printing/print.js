@@ -30,9 +30,18 @@ function getPDFPrintSettings() {
   return option;
 }
 
-function print() {
-  if (print_win)
-    print_win.webContents.print();
+function print(start,total) {
+     if (print_win){
+      var total = total;
+
+      print_win.webContents.print({silent:true},function(){
+         start++;
+        for(var i=start;i <= total ; i++){
+          print(start,total);
+   
+        }
+      });
+     }
 }
 
 function savePDF() {
@@ -75,7 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
   print_win.show();
 
   print_win.webContents.on('did-finish-load', function() {
-    document.getElementById('print_button').addEventListener('click', print);
+    document.getElementById('print_button').addEventListener('click',function(){
+      var total =  document.getElementById('total_page').value;
+        print(1,total);
+    });
     document.getElementById('save_pdf_button').addEventListener(
       'click', savePDF);
     document.getElementById('view_pdf_button').addEventListener(

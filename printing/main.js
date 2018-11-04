@@ -1,5 +1,6 @@
 const {app, BrowserWindow} = require('electron');
 
+
 let mainWindow;
 
 app.on('ready', function() {
@@ -12,3 +13,4 @@ app.on('ready', function() {
     }
   })
 });
+
